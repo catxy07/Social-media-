@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:my_social_media/core/constants/custom_colors.dart';
 
 class Picture extends StatefulWidget {
   const Picture({super.key});
@@ -84,13 +85,61 @@ class _PictureState extends State<Picture> {
           Column(
             children: [
               _selectedImage != null
-                  ? Image.file(_selectedImage!, height: 250, width: 250, fit: BoxFit.cover)
-                  : Icon(Icons.image, size: 100, color: Colors.grey),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _showImagePickerDialog,
-                child: Text("Select Image"),
+                  ? Container(
+                height: 200,
+                  width: 200,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: Colors.deepOrange,
+                    border: Border.all(width: 6, color: CustomColors.orange100)
+                  ),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.file(_selectedImage!, height: 250, width: 250, fit: BoxFit.cover)))
+                  : GestureDetector(
+                  onTap:  _showImagePickerDialog,
+                  child: Image.asset("assets/pfp.png",width: 250,height: 250,scale: 0.5,)),
+              SizedBox(height: 150),
+              Container(
+                height: 65,
+                width: 380,
+                decoration: BoxDecoration(
+
+                ),
+                child: ElevatedButton(
+                  onPressed: _showImagePickerDialog,
+                  child: Text("Select Image", style: TextStyle(color: Colors.white),),
+
+                  style: ButtonStyle(
+
+                    backgroundColor: WidgetStatePropertyAll(CustomColors.orange800),
+                  ),
+                ),
               ),
+
+             SizedBox(height: 30,),
+
+              if(_selectedImage != null)
+                Container(
+                  height: 65,
+                  width: 380,
+                  child: ElevatedButton(onPressed: (){
+
+                    
+                  }, child: Text("Done", style: TextStyle(color: Colors.white),
+
+
+                  ),
+
+                    style: ButtonStyle(
+
+                      backgroundColor: WidgetStatePropertyAll(CustomColors.orange800),
+                    ),
+                  ),
+
+                ),
+
+
             ],
           )
         ],
