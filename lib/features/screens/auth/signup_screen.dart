@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/constants/custom_colors.dart';
 import 'create_password.dart';
@@ -15,7 +16,7 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController fullName = TextEditingController();
-  final TextEditingController password = TextEditingController();
+  final TextEditingController phone = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -132,9 +133,10 @@ class _SignupScreenState extends State<SignupScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: TextFormField(
+
                     keyboardType: TextInputType.number,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    controller: password,
+                    controller: phone,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.only(left: 10),
                       filled: true,
@@ -152,7 +154,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide:
-                        BorderSide(width: 1, color: Colors.grey.shade700),
+                            BorderSide(width: 1, color: Colors.grey.shade700),
                       ),
                     ),
                     validator: (e) {
@@ -178,13 +180,16 @@ class _SignupScreenState extends State<SignupScreen> {
                       if (_formKey.currentState!.validate()) {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text("Vaild Input!")));
+                          //
+                          // _saveData(fullName.text, 'fullName');
+                          // _saveData(phone.text, 'phone');
+
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CreatePassword()));
+                                builder: (context) => CreatePassword(fullname: fullName.text, phone: phone.text,)));
                       }
-
-
                     },
                     child: Text(
                       "Next",
@@ -192,6 +197,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                     style: FilledButton.styleFrom(
                       shape: RoundedRectangleBorder(
+
                         borderRadius: BorderRadius.circular(20),
                       ),
                       backgroundColor: CustomColors.orange800,

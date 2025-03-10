@@ -12,4 +12,6 @@ class CustomColors {
   static const Color orange800 = Color(0xFFFF9900);
   static const Color black = Color(0xFF1F1F1F);
   static const Color grey = Color(0xFFA9A9A9);
+  static const Color grey80 = Color(0xFFE1E1E1);
+  static const Color grey60 = Color(0xFFC1C1C1);
 }

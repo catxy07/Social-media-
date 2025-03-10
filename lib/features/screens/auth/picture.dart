@@ -3,6 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_social_media/core/constants/custom_colors.dart';
+import 'package:my_social_media/features/screens/dashboard/screen_navigation.dart';
 
 class Picture extends StatefulWidget {
   const Picture({super.key});
@@ -125,7 +126,7 @@ class _PictureState extends State<Picture> {
                   width: 380,
                   child: ElevatedButton(onPressed: (){
 
-                    
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> ScreenNavigation()));
                   }, child: Text("Done", style: TextStyle(color: Colors.white),
 
 

@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:my_social_media/features/screens/Auth/signup_screen.dart';
 import 'package:my_social_media/features/screens/auth/picture.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/constants/custom_colors.dart';
 import 'login_screen.dart';
 
 class CreatePassword extends StatefulWidget {
-  const CreatePassword({super.key});
+  final String fullname;
+  final String  phone;
+
+  const CreatePassword(
+      {super.key, required this.fullname, required this.phone});
 
   @override
   State<CreatePassword> createState() => _CreatePassword();
 }
 
 class _CreatePassword extends State<CreatePassword> {
+
+
+  Future<void> _saveData(String value, String key) async {
+    SharedPreferences pr = await SharedPreferences.getInstance();
+    await pr.setString(key, value);
+  }
+
   bool obscureText = true;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -129,10 +142,17 @@ class _CreatePassword extends State<CreatePassword> {
                   child: FilledButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(content: Text("Vaild Input!")));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Vaild Input!")));
 
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> Picture()));
+
+                        _saveData(widget.fullname, 'fullName');
+                        _saveData(widget.phone, 'phone');
+                        _saveData(password.text, 'password');
+
+
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Picture()));
                       }
                     },
                     child: Text(
