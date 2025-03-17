@@ -85,30 +85,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
-                width: 130,
+                width: 170,
                 height: 50,
                 // padding: EdgeInsets.only(left: 50, top: 30),
-                child: FilledButton(onPressed: (){}, child: Text("Following")
+                child: FilledButton(onPressed: (){}, child: Text("Following" ,style: TextStyle(color: Colors.black, fontSize: 20),)
                 , style: ButtonStyle(
                     backgroundColor: WidgetStatePropertyAll(CustomColors.grey60),
                     shape: WidgetStatePropertyAll(
                       RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero
+                        borderRadius: BorderRadius.circular(15),
                       )
                     ),
                   ),
                 ),
               ),
               Container(
-                width: 130,
+                width: 170,
                 height: 50,
                 // padding: EdgeInsets.only(left: 50, top: 30),
-                child: FilledButton(onPressed: (){}, child: Text("Message")
+                child: FilledButton(onPressed: (){}, child: Text("Message", style: TextStyle(color: Colors.black, fontSize: 20),)
                   , style: ButtonStyle(
                     backgroundColor: WidgetStatePropertyAll(CustomColors.grey60),
                     shape: WidgetStatePropertyAll(
                         RoundedRectangleBorder(
-                            borderRadius: BorderRadius.zero
+                          borderRadius: BorderRadius.circular(15),
                         )
                     ),
                   ),

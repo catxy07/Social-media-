@@ -7,11 +7,11 @@ import '../../../core/constants/custom_colors.dart';
 import 'login_screen.dart';
 
 class CreatePassword extends StatefulWidget {
-  final String fullname;
-  final String  phone;
+  // final String fullname;
+  // final String  phone;
 
   const CreatePassword(
-      {super.key, required this.fullname, required this.phone});
+      {super.key});
 
   @override
   State<CreatePassword> createState() => _CreatePassword();
@@ -19,11 +19,11 @@ class CreatePassword extends StatefulWidget {
 
 class _CreatePassword extends State<CreatePassword> {
 
-
-  Future<void> _saveData(String value, String key) async {
-    SharedPreferences pr = await SharedPreferences.getInstance();
-    await pr.setString(key, value);
-  }
+  //
+  // Future<void> _saveData(String value, String key) async {
+  //   SharedPreferences pr = await SharedPreferences.getInstance();
+  //   await pr.setString(key, value);
+  // }
 
   bool obscureText = true;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -146,9 +146,9 @@ class _CreatePassword extends State<CreatePassword> {
                             const SnackBar(content: Text("Vaild Input!")));
 
 
-                        _saveData(widget.fullname, 'fullName');
-                        _saveData(widget.phone, 'phone');
-                        _saveData(password.text, 'password');
+                        // _saveData(widget.fullname, 'fullName');
+                        // _saveData(widget.phone, 'phone');
+                        // _saveData(password.text, 'password');
 
 
                         Navigator.push(context,

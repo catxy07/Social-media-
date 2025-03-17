@@ -188,7 +188,8 @@ class _SignupScreenState extends State<SignupScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CreatePassword(fullname: fullName.text, phone: phone.text,)));
+                                builder: (context) => CreatePassword()));
+                      // fullname: fullName.text, phone: phone.text,
                       }
                     },
                     child: Text(
