@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(Duration(seconds: 2));
     SharedPreferences sp = await SharedPreferences.getInstance();
 
-    final String? isValue = sp.getString('fullName');
+    final String? isValue = sp.getString('fullname');
 
     if(isValue != null){
      Navigator.push(context, MaterialPageRoute(builder: (context)=> ScreenNavigation()));

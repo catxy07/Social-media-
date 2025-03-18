@@ -5,16 +5,16 @@ import 'package:flutter/cupertino.dart';
 Future<UserCredential?> signUpWithEmail(
     {required String email,
     required String password,
-    required String phoneNumber}) async {
+}) async {
   try {
     UserCredential userCredential = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password);
-
-    await FirebaseFirestore.instance
-        .collection('user')
-        .doc(userCredential.user!.uid)
-        .set(
-            {'email': email, 'password': password, 'phoneNumber': phoneNumber});
+        return userCredential;
+    // await FirebaseFirestore.instance
+    //     .collection('user')
+    //     .doc(userCredential.user!.uid)
+    //     .set(
+    //         {'email': email, 'password': password});
   } catch (e) {
     print("Error is signUp $e");
     return null;

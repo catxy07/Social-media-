@@ -1,7 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_social_media/features/screens/Auth/signup_screen.dart';
+import 'package:my_social_media/features/screens/home/home_page.dart';
 
 import '../../../core/constants/custom_colors.dart';
+import '../../../core/constants/firebase.dart';
+import '../../../splash_screen.dart';
+import '../dashboard/screen_navigation.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,8 +16,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController login = TextEditingController();
-  TextEditingController signUp = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
 
 
   @override
@@ -83,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 border: InputBorder.none,
                               ),
                               style: TextStyle(),
-                              controller: login,
+                              controller: email,
                             ),
                             decoration: BoxDecoration(
                                 // color: Colors.grey.shade300,
@@ -110,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 border: InputBorder.none,
                               ),
                               style: TextStyle(),
-                              controller: signUp,
+                              controller: password,
                             ),
                             decoration: BoxDecoration(
                                 // color: Colors.grey.shade300,
@@ -136,7 +141,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: 380,
                         height: 65,
                         child: FilledButton(
-                          onPressed: () {},
+                          onPressed: () async{
+                            UserCredential? user = await loginWithEmail(email: email.text, password: password.text);
+
+                            if(user != null){
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>ScreenNavigation()));
+                            }else{
+                              print('failed to LOGIN');
+                            }
+
+                          },
                           child: Text(
                             "Log in",
                             style: TextStyle(fontSize: 19),

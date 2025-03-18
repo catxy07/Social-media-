@@ -98,8 +98,8 @@ class _SignupScreenState extends State<SignupScreen> {
                     controller: fullName,
                     keyboardType: TextInputType.name,
                     inputFormatters: [
-                      FilteringTextInputFormatter.allow(
-                          RegExp(r'^[a-zA-Z\s]+$')),
+                      // FilteringTextInputFormatter.allow(
+                      //     RegExp(r'^[a-zA-Z\s]+$')),
                       // Allows only letters and spaces
                     ],
                     validator: (value) {
@@ -188,10 +188,11 @@ class _SignupScreenState extends State<SignupScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CreatePassword()));
+                                builder: (context) => CreatePassword(fullname: fullName.text, phone: phone.text,)));
                       // fullname: fullName.text, phone: phone.text,
                       }
                     },
+
                     child: Text(
                       "Next",
                       style: TextStyle(fontSize: 19),

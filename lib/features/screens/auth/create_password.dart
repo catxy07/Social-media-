@@ -1,17 +1,21 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_social_media/features/screens/Auth/signup_screen.dart';
 import 'package:my_social_media/features/screens/auth/picture.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/constants/custom_colors.dart';
+import '../../../core/constants/firebase.dart';
+import '../dashboard/screen_navigation.dart';
+import '../home/home_page.dart';
 import 'login_screen.dart';
 
 class CreatePassword extends StatefulWidget {
-  // final String fullname;
-  // final String  phone;
+  final String fullname;
+  final String  phone;
 
   const CreatePassword(
-      {super.key});
+      {super.key, required this.fullname, required this.phone});
 
   @override
   State<CreatePassword> createState() => _CreatePassword();
@@ -140,10 +144,10 @@ class _CreatePassword extends State<CreatePassword> {
                   width: 380,
                   height: 60,
                   child: FilledButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("Vaild Input!")));
+                    onPressed: () async {
+                      // if (_formKey.currentState!.validate()) {
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //       const SnackBar(content: Text("Vaild Input!")));
 
 
                         // _saveData(widget.fullname, 'fullName');
@@ -151,9 +155,21 @@ class _CreatePassword extends State<CreatePassword> {
                         // _saveData(password.text, 'password');
 
 
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Picture()));
-                      }
+                        final password1 = password.text;
+
+                        // For now, print the input
+                        print('Password: $password');
+
+                        UserCredential? user = await signUpWithEmail(password: password1, email: widget.fullname);
+                        print("user is : ${user?.user?.email}");
+                        if(user != null){
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>ScreenNavigation()));
+                        }else{
+                          print('failed to signup');
+                        }
+                        // Navigator.push(context,
+                        //     MaterialPageRoute(builder: (context) => Picture()));
+
                     },
                     child: Text(
                       "Next",
