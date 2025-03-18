@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_social_media/core/constants/custom_colors.dart';
+import 'package:my_social_media/core/constants/images_contants.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -18,7 +19,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           padding: EdgeInsets.only(left: 150, top: 100, right: 140),
           child:  ClipRRect(
               borderRadius: BorderRadius.circular(200),
-              child: Image.asset('assets/profile.jpg', width: 100, height: 100,)),
+              child: Image.asset(AllImages.profile, width: 100, height: 100,)),
         ),
           
           Container(

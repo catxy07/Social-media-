@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_social_media/core/constants/images_contants.dart';
 
 class PostScreen extends StatefulWidget {
   const PostScreen({super.key});
@@ -44,7 +45,7 @@ class _PostScreenState extends State<PostScreen> {
                return Container(
                  child: Column(
                      children: [
-                   Image.asset('assets/post.jpg', width: 385, height: 450,),
+                   Image.asset(AllImages.post, width: 385, height: 450,),
 
                        // SizedBox(height: 10,),
                        Row(

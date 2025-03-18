@@ -14,6 +14,7 @@ class CreatePassword extends StatefulWidget {
   final String fullname;
   final String  phone;
 
+
   const CreatePassword(
       {super.key, required this.fullname, required this.phone});
 
@@ -23,11 +24,11 @@ class CreatePassword extends StatefulWidget {
 
 class _CreatePassword extends State<CreatePassword> {
 
-  //
-  // Future<void> _saveData(String value, String key) async {
-  //   SharedPreferences pr = await SharedPreferences.getInstance();
-  //   await pr.setString(key, value);
-  // }
+
+  Future<void> _saveData(String value, String key) async {
+    SharedPreferences pr = await SharedPreferences.getInstance();
+    await pr.setString(key, value);
+  }
 
   bool obscureText = true;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -150,19 +151,23 @@ class _CreatePassword extends State<CreatePassword> {
                       //       const SnackBar(content: Text("Vaild Input!")));
 
 
-                        // _saveData(widget.fullname, 'fullName');
-                        // _saveData(widget.phone, 'phone');
-                        // _saveData(password.text, 'password');
+
 
 
                         final password1 = password.text;
 
                         // For now, print the input
                         print('Password: $password');
-
+                         String? userId;
                         UserCredential? user = await signUpWithEmail(password: password1, email: widget.fullname);
                         print("user is : ${user?.user?.email}");
+                        userId = user?.user?.uid;
+                        print(userId);
                         if(user != null){
+                          _saveData(widget.fullname, 'fullName');
+                          // _saveData(widget.phone, 'phone');
+                          _saveData(password.text, 'password');
+                          _saveData(userId!,'uid');
                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>ScreenNavigation()));
                         }else{
                           print('failed to signup');

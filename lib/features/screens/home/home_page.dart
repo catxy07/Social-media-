@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_social_media/core/constants/images_contants.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -49,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(200),
-                                child: Image.asset('assets/profile.jpg')),
+                                child: Image.asset(AllImages.profile)),
                           ),
                           Text("Your story"),
                         ],
@@ -58,6 +59,7 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
               ),
+              // SizedBox(height: 20,),
               ListView.builder(
                 padding: EdgeInsets.zero,
                 shrinkWrap: true,
@@ -66,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                 scrollDirection: Axis.vertical,
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 6.0,vertical: 8),
                     child: Column(
                       children: [
                         // SizedBox(
@@ -86,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(200),
-                                  child: Image.asset('assets/profile.jpg')),
+                                  child: Image.asset(AllImages.profile)),
                             ),
                             SizedBox(
                               width: 10,
@@ -129,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                         Column(
                           children: [
                             Container(
-                              child: Image.asset('assets/post.jpg'),
+                              child: Image.asset(AllImages.post),
                             ),
                           ],
                         ),
