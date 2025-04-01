@@ -1,0 +1,2 @@
+D:/maulesh/Social-media-/android/app/.cxx/Debug/2v4f512y/arm64-v8a/CMakeFiles/edit_cache.dir
+D:/maulesh/Social-media-/android/app/.cxx/Debug/2v4f512y/arm64-v8a/CMakeFiles/rebuild_cache.dir

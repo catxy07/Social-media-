@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_social_media/core/constants/custom_colors.dart';
 import 'package:my_social_media/features/screens/chat/user_interaction_screen.dart';
+
+import 'model/name.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -10,6 +14,51 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchUser();
+  }
+  Future<QuerySnapshot<Map<String, dynamic>>> getUser() async {
+    return await FirebaseFirestore.instance
+        .collection('user')
+        .get();
+  }
+
+  void fetchUser() async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> userDocs = await getUser();
+
+      if (userDocs.docs.isEmpty) {
+        print("No users found");
+        return;
+      }
+
+      for (var doc in userDocs.docs) {
+        var userData = doc.data();
+        var key = doc;
+        print("Name: ${key.id}");
+        InteractionModel model = InteractionModel(name: userData['name'], lastChat: userData['email'], uid: key.id);
+        userIteraction.add(model);
+
+      }
+      WidgetsBinding.instance.addPostFrameCallback((_){
+        setState(() {
+
+        });
+      });
+      print(userIteraction.length);
+    } catch (e) {
+      print("Error: $e");
+    }
+  }
+
+  List<InteractionModel> userIteraction = [
+
+  ];
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +68,8 @@ class _ChatScreenState extends State<ChatScreen> {
         elevation: 0,
         title: Text(
           "Chatting",
-          style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold, color: Colors.black),
+          style: TextStyle(
+              fontSize: 27, fontWeight: FontWeight.bold, color: Colors.black),
         ),
         actions: [
           Padding(
@@ -34,7 +84,6 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       body: SingleChildScrollView(
         child: Column(
-
           children: [
             // Container(
             //   // color: Colors.amberAccent,
@@ -53,76 +102,79 @@ class _ChatScreenState extends State<ChatScreen> {
             //   ),
             // ),
 
-
-
-            InkWell(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> UserInteractionScreen()));
-              },
-              child: Container(
-                // color: Colors.deepOrange,
-                child: ListView.builder(
-
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-
-                  itemCount: 10,
-                  itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  color: Colors.white70,
-                  margin: EdgeInsets.only(left: 15, right:  15, bottom: 15),
-                  child: Row(
-
-                    children: [
-                      Container(
-                        width: 80,
-                        height: 80,
-                        decoration: BoxDecoration(
-
-                  ),
-                        child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: Image.asset('assets/circle.jpg')),
-                      ),
-
-                      Column(
+            Container(
+              // color: Colors.deepOrange,
+              child: ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: userIteraction.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UserInteractionScreen()));
+                    },
+                    child: Container(
+                      color: Colors.white70,
+                      margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
+                      child: Row(
                         children: [
-                          Row(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.only(left: 10),
-                                child: Text("Sophia Williams" ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
-                              ),
-
-                              SizedBox(width: 100,),
-                              Container(
-                                child: Text("11:43", style: TextStyle(color: CustomColors.grey),),
-                              ),
-                            ],
-
+                          Container(
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(),
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Image.asset('assets/circle.jpg')),
                           ),
-
-                          Row(
-
+                          Column(
                             children: [
-                              Container(
-                                padding: EdgeInsets.only(right: 50, top: 10),
-                                child: Text("Hey! Are we still on for coffee this Saturday?", style: TextStyle(fontSize: 10),),
+                              Row(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      userIteraction[index].name,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 190,
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      "11:43",
+                                      style:
+                                          TextStyle(color: CustomColors.grey),
+                                    ),
+                                  ),
+                                ],
                               ),
+                              Row(
+                                children: [
+                                  Container(
+                                    padding:
+                                        EdgeInsets.only(right: 170, top: 10),
+                                    child: Text(
+                    userIteraction[index].lastChat,
+                                      style: TextStyle(fontSize: 10),
+                                    ),
+                                  ),
+                                ],
+                              )
                             ],
                           )
                         ],
-                      )
-                    ],
-                  ),
-                );
+                      ),
+                    ),
+                  );
                 },
-
-
-                ),
               ),
             )
-
           ],
         ),
       ),

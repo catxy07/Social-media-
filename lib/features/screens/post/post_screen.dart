@@ -24,7 +24,9 @@ class _PostScreenState extends State<PostScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Your Posts",style: TextStyle()),),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text("Your Posts",style: TextStyle()),),
      body: SingleChildScrollView(
        child: Column(
 

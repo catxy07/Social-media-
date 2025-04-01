@@ -34,6 +34,7 @@ class _CreatePassword extends State<CreatePassword> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final TextEditingController password = TextEditingController();
+  final TextEditingController name = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -137,6 +138,60 @@ class _CreatePassword extends State<CreatePassword> {
                     },
                   ),
                 ),
+                Container(
+                    padding: EdgeInsets.only(right: 310),
+                    child: Text(
+                      "name",
+                      style: TextStyle(
+                          color: Colors.black54,
+                          fontWeight: FontWeight.bold),
+                    )),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 10),
+                      filled: true,
+                      fillColor: Colors.white,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide:
+                        BorderSide(width: 1, color: Colors.grey.shade700),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide:
+                        BorderSide(width: 1, color: Colors.grey.shade700),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide:
+                        BorderSide(width: 1, color: Colors.grey.shade700),
+                      ),
+                    ),
+                    controller: name,
+                    keyboardType: TextInputType.name,
+                    inputFormatters: [
+                      // Allows only letters and spaces
+                    ],
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Enter vaild name";
+                      }
+
+                      if (value.length != 6) {
+                        return "Enter proper password";
+                      }
+                      // if (RegExp(r'^[a-zA-Z\s]+$').hasMatch(value)) {
+                      //   return "Only alphabets and spaces allow";
+                      // }
+                      return null;
+                    },
+                  ),
+                ),
                 SizedBox(
                   height: 340,
                 ),
@@ -159,7 +214,7 @@ class _CreatePassword extends State<CreatePassword> {
                         // For now, print the input
                         print('Password: $password');
                          String? userId;
-                        UserCredential? user = await signUpWithEmail(password: password1, email: widget.fullname);
+                        UserCredential? user = await signUpWithEmail(password: password1, email: widget.fullname, name: name.text);
                         print("user is : ${user?.user?.email}");
                         userId = user?.user?.uid;
                         print(userId);

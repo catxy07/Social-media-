@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 Future<UserCredential?> signUpWithEmail(
     {required String email,
     required String password,
+      required String name,
 }) async {
   try {
     UserCredential userCredential = await FirebaseAuth.instance
@@ -14,7 +15,7 @@ Future<UserCredential?> signUpWithEmail(
         .collection('user')
         .doc(userCredential.user!.uid)
         .set(
-            {'email': email, 'password': password});
+            {'email': email, 'password': password,'name': name});
     return userCredential;
   } catch (e) {
     print("Error is signUp $e");
