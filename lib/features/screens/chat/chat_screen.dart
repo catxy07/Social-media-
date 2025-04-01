@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_social_media/core/constants/custom_colors.dart';
 import 'package:my_social_media/features/screens/chat/user_interaction_screen.dart';
