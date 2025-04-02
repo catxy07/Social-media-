@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_social_media/core/constants/custom_colors.dart';
 import 'package:my_social_media/features/screens/chat/user_interaction_screen.dart';
 
+import '../../../core/utils/getIteractionId.dart';
 import 'model/name.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -13,16 +15,15 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
- @override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     fetchUser();
   }
+
   Future<QuerySnapshot<Map<String, dynamic>>> getUser() async {
-    return await FirebaseFirestore.instance
-        .collection('user')
-        .get();
+    return await FirebaseFirestore.instance.collection('user').get();
   }
 
   void fetchUser() async {
@@ -38,14 +39,12 @@ class _ChatScreenState extends State<ChatScreen> {
         var userData = doc.data();
         var key = doc;
         print("Name: ${key.id}");
-        InteractionModel model = InteractionModel(name: userData['name'], lastChat: userData['email'], uid: key.id);
+        InteractionModel model = InteractionModel(
+            name: userData['name'], lastChat: userData['email'], uid: key.id);
         userIteraction.add(model);
-
       }
-      WidgetsBinding.instance.addPostFrameCallback((_){
-        setState(() {
-
-        });
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() {});
       });
       print(userIteraction.length);
     } catch (e) {
@@ -53,10 +52,7 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  List<InteractionModel> userIteraction = [
-
-  ];
-
+  List<InteractionModel> userIteraction = [];
 
   @override
   Widget build(BuildContext context) {
@@ -109,11 +105,16 @@ class _ChatScreenState extends State<ChatScreen> {
                 itemCount: userIteraction.length,
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
-                    onTap: () {
+                    onTap: () async {
+                      final FirebaseAuth auth = FirebaseAuth.instance;
+                       final user =  auth.currentUser;
+                      final uid = user?.uid;
+                      // print(await compareUserIds(uid!,userIteraction[index].uid));
+                     String iteractionId= await compareUserIds(userIteraction[index].uid,uid!);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => UserInteractionScreen()));
+                              builder: (context) => UserInteractionScreen(IteractionId: iteractionId, userId: uid, IteractedUserId: userIteraction[index].uid,)));
                     },
                     child: Container(
                       color: Colors.white70,
@@ -159,7 +160,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                     padding:
                                         EdgeInsets.only(right: 170, top: 10),
                                     child: Text(
-                    userIteraction[index].lastChat,
+                                      userIteraction[index].lastChat,
                                       style: TextStyle(fontSize: 10),
                                     ),
                                   ),

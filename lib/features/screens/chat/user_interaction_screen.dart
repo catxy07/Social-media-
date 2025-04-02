@@ -1,10 +1,19 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:my_social_media/core/constants/custom_colors.dart';
 import 'package:my_social_media/features/screens/chat/model/chat_model.dart';
 import 'package:my_social_media/features/screens/chat/user_chat_ab_screen.dart';
 
 class UserInteractionScreen extends StatefulWidget {
-  const UserInteractionScreen({super.key});
+  String IteractionId;
+  String userId;
+  String IteractedUserId;
+
+  UserInteractionScreen({super.key,
+  required this.IteractionId,
+    required this.userId,
+    required this.IteractedUserId,
+  });
 
   @override
   State<UserInteractionScreen> createState() => _UserInteractionScreenState();
@@ -12,8 +21,8 @@ class UserInteractionScreen extends StatefulWidget {
 
 class _UserInteractionScreenState extends State<UserInteractionScreen> {
   TextEditingController chat = TextEditingController();
-
-  final List<ChatModel> msg = [
+  final databaseRef = FirebaseDatabase.instance.ref("chat");
+  final List<Chat> msg = [
     // ChatModel(
     //   isCurrentUser: true,
     //   msg: 'Hey! How have you been? It’s been such a long time since we last talked. I was just thinking about the good old days when we used to hang out all the time. Hope everything is going well for you!',
@@ -72,14 +81,43 @@ class _UserInteractionScreenState extends State<UserInteractionScreen> {
     return "${now.hour}:${now.minute.toString().padLeft(2, '0')} ${now.hour >= 12 ? 'PM' : 'AM'}";
   }
 
-  void _sendmsg() {
-    setState(() {
-      msg.add(ChatModel(
-          isCurrentUser: crChat, msg: chat.text, time: _getCurrentTime()));
-      chat.clear();
-      crChat = !crChat;
-    });
+  Future<void> sendMessage() async {
+    String message = chat.text.trim();
+    if (message.isEmpty) {
+      print("Message is empty");
+      return;
+    }
+
+    try {
+      final databaseRef = FirebaseDatabase.instance.ref("chat"); // Ensure correct path
+      String messageId = databaseRef.push().key!; // Unique ID
+
+      print("Sending message...");
+      print("Sender ID: ${widget.userId}");
+      print("Receiver ID: ${widget.IteractedUserId}");
+
+      await databaseRef.child(widget.IteractionId).child(messageId).set({
+        'senderId': widget.userId,
+        'receiverId': widget.IteractedUserId,
+        'chatMsg': message,
+        'chatTime': DateTime.now().millisecondsSinceEpoch,
+      });
+
+      chat.clear(); // Clear text field
+      print("Message sent!");
+    } catch (e) {
+      print("Failed to send message: $e");
+    }
   }
+
+  // void _sendmsg() {
+  //   setState(() {
+  //     msg.add(Chat(
+  //         isCurrentUser: crChat, msg: chat.text, time: _getCurrentTime()));
+  //     chat.clear();
+  //     crChat = !crChat;
+  //   });
+  // }
 
   late double ScreenHeight;
   late double ScreenWidth;
@@ -99,11 +137,11 @@ class _UserInteractionScreenState extends State<UserInteractionScreen> {
                   child: ListView.builder(
                     itemCount: msg.length,
                     itemBuilder: (BuildContext context, int index) {
-                      ChatModel chat = msg[index];
+                      Chat chat = msg[index];
                       return Align(
-                        alignment: chat.isCurrentUser
-                            ? Alignment.centerRight
-                            : Alignment.centerLeft,
+                        // alignment: chat.isCurrentUser
+                        //     ? Alignment.centerRight
+                        //     : Alignment.centerLeft,
                         child: Container(
                           constraints: BoxConstraints(
                             minWidth: 50,
@@ -111,34 +149,34 @@ class _UserInteractionScreenState extends State<UserInteractionScreen> {
                           ),
                           padding: EdgeInsets.symmetric(
                               horizontal: 10, vertical: 10),
-                          margin: EdgeInsets.only(
-                              top: 10,
-                              left: chat.isCurrentUser ? 100 : 10,
-                              right: chat.isCurrentUser ? 10 : 100),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: chat.isCurrentUser
-                                ? CustomColors.grey
-                                : CustomColors.grey80,
-                          ),
+                          // margin: EdgeInsets.only(
+                          //     top: 10,
+                          //     // left: chat.isCurrentUser ? 100 : 10,
+                          //     // right: chat.isCurrentUser ? 10 : 100),
+                          // decoration: BoxDecoration(
+                          //   borderRadius: BorderRadius.circular(20),
+                          //   color: chat.isCurrentUser
+                          //       ? CustomColors.grey
+                          //       : CustomColors.grey80,
+                          // ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             // Align time to the right
                             children: [
-                              Text(
-                                chat.msg,
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.white),
-                              ),
+                              // Text(
+                              //   chat.msg,
+                              //   style: TextStyle(
+                              //       fontSize: 18, color: Colors.white),
+                              // ),
                               SizedBox(height: 5),
                               // Spacing between message and time
-                              Text(
-                                chat.time,
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors
-                                        .white70), // Smaller, lighter text
-                              ),
+                              // Text(
+                              //   // chat.time,
+                              //   style: TextStyle(
+                              //       fontSize: 12,
+                              //       color: Colors
+                              //           .white70), // Smaller, lighter text
+                              // ),
                             ],
                           ),
                         ),
@@ -174,7 +212,7 @@ class _UserInteractionScreenState extends State<UserInteractionScreen> {
                       ),
                       Container(
                         child:
-                            InkWell(onTap: _sendmsg, child: Icon(Icons.send)),
+                            InkWell(onTap: sendMessage, child: Icon(Icons.send)),
                       )
                     ],
                   ),
