@@ -92,7 +92,7 @@ class _UserInteractionScreenState extends State<UserInteractionScreen> {
       final databaseRef = FirebaseDatabase.instance.ref("chat"); // Ensure correct path
       String messageId = databaseRef.push().key!; // Unique ID
 
-      print("Sending message...");
+      print("Sending message.");
       print("Sender ID: ${widget.userId}");
       print("Receiver ID: ${widget.IteractedUserId}");
 
