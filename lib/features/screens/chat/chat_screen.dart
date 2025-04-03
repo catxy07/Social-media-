@@ -114,7 +114,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => UserInteractionScreen(IteractionId: iteractionId, userId: uid, IteractedUserId: userIteraction[index].uid,)));
+                              builder: (context) => UserInteractionScreen(IteractionId: iteractionId, userId: uid, IteractedUserId: userIteraction[index].uid, iteractedUsername: userIteraction[index].name,)));
                     },
                     child: Container(
                       color: Colors.white70,

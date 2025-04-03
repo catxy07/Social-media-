@@ -42,7 +42,12 @@
 import 'package:flutter/material.dart';
 
 class UserChatAbScreen extends StatefulWidget implements PreferredSizeWidget{
-  const UserChatAbScreen({super.key});
+
+  String iteractedUserName;
+
+  UserChatAbScreen({super.key,
+  required this.iteractedUserName
+  });
 
   @override
   State<UserChatAbScreen> createState() => _UserChatAbScreenState();
@@ -67,7 +72,7 @@ class _UserChatAbScreenState extends State<UserChatAbScreen> {
         
               SizedBox(width: 10,),
         
-              Text("Xavier Peloski", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),),
+              Text(widget.iteractedUserName, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),),
             ],
           ),
       );
