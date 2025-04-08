@@ -60,21 +60,27 @@ class UserChatAbScreen extends StatefulWidget implements PreferredSizeWidget{
 class _UserChatAbScreenState extends State<UserChatAbScreen> {
   @override
   Widget build(BuildContext context) {
-      return  SafeArea(
-        child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(width: 15,),
-              ClipRRect(
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+      return  Container(
+        width: screenWidth,
+        height: screenHeight,
+        child: SafeArea(
+          child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(width: 15,),
+                ClipRRect(
 
-                  borderRadius: BorderRadius.circular(100),
-                  child: Image.asset('assets/post.jpg', width: 60, height: 60,)),
-        
-              SizedBox(width: 10,),
-        
-              Text(widget.iteractedUserName, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),),
-            ],
-          ),
+                    borderRadius: BorderRadius.circular(100),
+                    child: Image.asset('assets/post.jpg', width: 60, height: 60,)),
+
+                SizedBox(width: 10,),
+
+                Text(widget.iteractedUserName, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),),
+              ],
+            ),
+        ),
       );
 
   }

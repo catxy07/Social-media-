@@ -96,6 +96,7 @@ class _UserInteractionScreenState extends State<UserInteractionScreen> {
         body: SingleChildScrollView(
           child: Container(
             height: ScreenHeight - kToolbarHeight - 60,
+            width: ScreenWidth,
             child: Column(
               children: [
                 StreamBuilder(

@@ -26,26 +26,32 @@ class _ScreenNavigationState extends State<ScreenNavigation> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    return Container(
+      width: screenWidth,
+      height: screenHeight,
+      child: Scaffold(
 
-      bottomNavigationBar:    NavigationBar(destinations: [
-        NavigationDestination(icon: Icon(Icons.home), label: ""),
-        NavigationDestination(icon: Icon(Icons.message), label: ""),
-        NavigationDestination(icon: Icon(Icons.add), label: ""),
-        NavigationDestination(icon: Icon(Icons.post_add), label: ""),
-        NavigationDestination(icon: Icon(Icons.person), label: ""),
-      ],
-      selectedIndex: currentIndex,
-        onDestinationSelected: (int index){
+        bottomNavigationBar:    NavigationBar(destinations: [
+          NavigationDestination(icon: Icon(Icons.home), label: ""),
+          NavigationDestination(icon: Icon(Icons.message), label: ""),
+          NavigationDestination(icon: Icon(Icons.add), label: ""),
+          NavigationDestination(icon: Icon(Icons.post_add), label: ""),
+          NavigationDestination(icon: Icon(Icons.person), label: ""),
+        ],
+        selectedIndex: currentIndex,
+          onDestinationSelected: (int index){
 
-        print("index is: $index");
-        currentIndex = index;
-        setState(() {
+          print("index is: $index");
+          currentIndex = index;
+          setState(() {
 
-        });
-        },
+          });
+          },
+        ),
+        body: list1[currentIndex]
       ),
-      body: list1[currentIndex]
     );
   }
 }

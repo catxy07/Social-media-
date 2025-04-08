@@ -101,61 +101,67 @@ class _UploadScreenState extends State<UploadScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppbarScreen(),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              const SizedBox(height: 15),
-              _buildTextFieldContainer("Title", "Enter title", postTitle),
-              const SizedBox(height: 25),
-              _buildTextFieldContainer(
-                  "Description", "Enter description", description),
-              const SizedBox(height: 20),
+      body: Container(
+        width: screenWidth,
+        height: screenHeight,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                const SizedBox(height: 15),
+                _buildTextFieldContainer("Title", "Enter title", postTitle),
+                const SizedBox(height: 25),
+                _buildTextFieldContainer(
+                    "Description", "Enter description", description),
+                const SizedBox(height: 20),
 
-              // Dynamically generated upload containers
-              Column(
-                children: _selectedImages
-                    .asMap()
-                    .entries
-                    .map((entry) =>
-                    _buildUploadContainer(entry.key, entry.value))
-                    .toList(),
-              ),
+                // Dynamically generated upload containers
+                Column(
+                  children: _selectedImages
+                      .asMap()
+                      .entries
+                      .map((entry) =>
+                      _buildUploadContainer(entry.key, entry.value))
+                      .toList(),
+                ),
 
-              const SizedBox(height: 10),
+                const SizedBox(height: 10),
 
-              // Button to add more upload containers
-              Align(
-                alignment: Alignment.centerRight,
-                child: FilledButton(
-                  onPressed: _showImagePickerDialog,
-                  child: const Text("Add pics"),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.black54),
+                // Button to add more upload containers
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: FilledButton(
+                    onPressed: _showImagePickerDialog,
+                    child: const Text("Add pics"),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.black54),
+                    ),
                   ),
                 ),
-              ),
 
-              const SizedBox(height: 20),
+                const SizedBox(height: 20),
 
-              // Post button
-              SizedBox(
-                width: 200,
-                height: 50,
-                child: FilledButton(
-                  onPressed: _handlePost,
-                  child: const Text("Post"),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.blue),
+                // Post button
+                SizedBox(
+                  width: 200,
+                  height: 50,
+                  child: FilledButton(
+                    onPressed: _handlePost,
+                    child: const Text("Post"),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.blue),
+                    ),
                   ),
                 ),
-              ),
 
-              const SizedBox(height: 20),
-            ],
+                const SizedBox(height: 20),
+              ],
+            ),
           ),
         ),
       ),

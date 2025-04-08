@@ -38,243 +38,249 @@ class _CreatePassword extends State<CreatePassword> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Material(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 80,
-                ),
-                Container(
-                  padding: EdgeInsets.only(right: 340),
-                  child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Icon(Icons.arrow_back_ios)),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: 35, right: 150),
-                  child: Text(
-                    "Create password",
-                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+      body: Container(
+        width: screenWidth,
+        height: screenHeight,
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Material(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 80,
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 20),
-                  width: 380,
-                  child: Text(
-                    "Create a password comprising a minimum of 6"
-                    " letters or digits.Ensure It's something that"
-                    " would be challenging for others ro predict",
-                    style: TextStyle(
-                        color: CustomColors.grey,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
+                  Container(
+                    padding: EdgeInsets.only(right: 340),
+                    child: InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(Icons.arrow_back_ios)),
                   ),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                        padding: EdgeInsets.only(right: 310),
-                        child: Text(
-                          "Password",
-                          style: TextStyle(
-                              color: Colors.black54,
-                              fontWeight: FontWeight.bold),
-                        )),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(left: 10),
-                      filled: true,
-                      fillColor: Colors.white,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            BorderSide(width: 1, color: Colors.grey.shade700),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            BorderSide(width: 1, color: Colors.grey.shade700),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            BorderSide(width: 1, color: Colors.grey.shade700),
-                      ),
-                    ),
-                    controller: password,
-                    keyboardType: TextInputType.name,
-                    inputFormatters: [
-                      // Allows only letters and spaces
-                    ],
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Enter vaild name";
-                      }
-
-                      if (value.length != 6) {
-                        return "Enter proper password";
-                      }
-                      // if (RegExp(r'^[a-zA-Z\s]+$').hasMatch(value)) {
-                      //   return "Only alphabets and spaces allow";
-                      // }
-                      return null;
-                    },
-                  ),
-                ),
-                Container(
-                    padding: EdgeInsets.only(right: 310),
+                  Container(
+                    padding: EdgeInsets.only(top: 35, right: 150),
                     child: Text(
-                      "name",
+                      "Create password",
+                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 20),
+                    width: 380,
+                    child: Text(
+                      "Create a password comprising a minimum of 6"
+                      " letters or digits.Ensure It's something that"
+                      " would be challenging for others ro predict",
                       style: TextStyle(
-                          color: Colors.black54,
+                          color: CustomColors.grey,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold),
-                    )),
-                SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(left: 10),
-                      filled: true,
-                      fillColor: Colors.white,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                        BorderSide(width: 1, color: Colors.grey.shade700),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                        BorderSide(width: 1, color: Colors.grey.shade700),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                        BorderSide(width: 1, color: Colors.grey.shade700),
-                      ),
                     ),
-                    controller: name,
-                    keyboardType: TextInputType.name,
-                    inputFormatters: [
-                      // Allows only letters and spaces
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                          padding: EdgeInsets.only(right: 310),
+                          child: Text(
+                            "Password",
+                            style: TextStyle(
+                                color: Colors.black54,
+                                fontWeight: FontWeight.bold),
+                          )),
                     ],
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Enter vaild name";
-                      }
-
-                      if (value.length != 6) {
-                        return "Enter proper password";
-                      }
-                      // if (RegExp(r'^[a-zA-Z\s]+$').hasMatch(value)) {
-                      //   return "Only alphabets and spaces allow";
-                      // }
-                      return null;
-                    },
                   ),
-                ),
-                SizedBox(
-                  height: 340,
-                ),
-                Container(
-                  decoration: BoxDecoration(),
-                  width: 380,
-                  height: 60,
-                  child: FilledButton(
-                    onPressed: () async {
-                      // if (_formKey.currentState!.validate()) {
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //       const SnackBar(content: Text("Vaild Input!")));
-
-
-
-
-
-                        final password1 = password.text;
-
-                        // For now, print the input
-                        print('Password: $password');
-                         String? userId;
-                        UserCredential? user = await signUpWithEmail(password: password1, email: widget.fullname, name: name.text);
-                        print("user is : ${user?.user?.email}");
-                        userId = user?.user?.uid;
-                        print(userId);
-                        if(user != null){
-                          _saveData(widget.fullname, 'fullName');
-                          // _saveData(widget.phone, 'phone');
-                          _saveData(password.text, 'password');
-                          _saveData(userId!,'uid');
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>ScreenNavigation()));
-                        }else{
-                          print('failed to signup');
-                        }
-                        // Navigator.push(context,
-                        //     MaterialPageRoute(builder: (context) => Picture()));
-
-                    },
-                    child: Text(
-                      "Next",
-                      style: TextStyle(fontSize: 19),
-                    ),
-                    style: FilledButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 10),
+                        filled: true,
+                        fillColor: Colors.white,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              BorderSide(width: 1, color: Colors.grey.shade700),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              BorderSide(width: 1, color: Colors.grey.shade700),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              BorderSide(width: 1, color: Colors.grey.shade700),
+                        ),
                       ),
-                      backgroundColor: CustomColors.orange800,
+                      controller: password,
+                      keyboardType: TextInputType.name,
+                      inputFormatters: [
+                        // Allows only letters and spaces
+                      ],
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Enter vaild name";
+                        }
+
+                        if (value.length != 6) {
+                          return "Enter proper password";
+                        }
+                        // if (RegExp(r'^[a-zA-Z\s]+$').hasMatch(value)) {
+                        //   return "Only alphabets and spaces allow";
+                        // }
+                        return null;
+                      },
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 80,
-                    ),
-                    Container(
-                      child: Text("Already have account?",
-                          style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black)),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen()));
+                  Container(
+                      padding: EdgeInsets.only(right: 310),
+                      child: Text(
+                        "name",
+                        style: TextStyle(
+                            color: Colors.black54,
+                            fontWeight: FontWeight.bold),
+                      )),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 10),
+                        filled: true,
+                        fillColor: Colors.white,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                          BorderSide(width: 1, color: Colors.grey.shade700),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                          BorderSide(width: 1, color: Colors.grey.shade700),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                          BorderSide(width: 1, color: Colors.grey.shade700),
+                        ),
+                      ),
+                      controller: name,
+                      keyboardType: TextInputType.name,
+                      inputFormatters: [
+                        // Allows only letters and spaces
+                      ],
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Enter vaild name";
+                        }
+
+                        if (value.length != 6) {
+                          return "Enter proper password";
+                        }
+                        // if (RegExp(r'^[a-zA-Z\s]+$').hasMatch(value)) {
+                        //   return "Only alphabets and spaces allow";
+                        // }
+                        return null;
                       },
-                      child: Container(
-                          child: Text(" Login in",
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                  color: CustomColors.orange700))),
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                  SizedBox(
+                    height: 340,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(),
+                    width: 380,
+                    height: 60,
+                    child: FilledButton(
+                      onPressed: () async {
+                        // if (_formKey.currentState!.validate()) {
+                        //   ScaffoldMessenger.of(context).showSnackBar(
+                        //       const SnackBar(content: Text("Vaild Input!")));
+
+
+
+
+
+                          final password1 = password.text;
+
+                          // For now, print the input
+                          print('Password: $password');
+                           String? userId;
+                          UserCredential? user = await signUpWithEmail(password: password1, email: widget.fullname, name: name.text);
+                          print("user is : ${user?.user?.email}");
+                          userId = user?.user?.uid;
+                          print(userId);
+                          if(user != null){
+                            _saveData(widget.fullname, 'fullName');
+                            // _saveData(widget.phone, 'phone');
+                            _saveData(password.text, 'password');
+                            _saveData(userId!,'uid');
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>ScreenNavigation()));
+                          }else{
+                            print('failed to signup');
+                          }
+                          // Navigator.push(context,
+                          //     MaterialPageRoute(builder: (context) => Picture()));
+
+                      },
+                      child: Text(
+                        "Next",
+                        style: TextStyle(fontSize: 19),
+                      ),
+                      style: FilledButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        backgroundColor: CustomColors.orange800,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 80,
+                      ),
+                      Container(
+                        child: Text("Already have account?",
+                            style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black)),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginScreen()));
+                        },
+                        child: Container(
+                            child: Text(" Login in",
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                    color: CustomColors.orange700))),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
